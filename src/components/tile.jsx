@@ -1,9 +1,11 @@
-import React from "react"
+import React from "react";
 
-const Tile = () => {
+const Tile = (props) => {
+  const { colour } = props;
   return (
-    <div>imma tile</div>
-  )
+    <div style={{ "background-color": colour }} className="tile">
+    </div>
+  );
 };
 
 export default Tile;
