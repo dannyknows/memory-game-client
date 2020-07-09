@@ -5,14 +5,26 @@ class Game extends Component {
   constructor() {
     super();
     this.visible = [];
-    this.state = { clicks: 1 };
+    this.state = { clicks: 1, pairs: 0, name: "player" };
   }
 
   pairCheck = () => {
     if (this.visible.length === 2) {
-      if (this.visible[0].id === this.visible[1].id) {
-        console.log("victory");
+      if (this.visible[0].id === this.visible[1].id && this.state.pairs < 8) {
+        this.state.pairs += 1;
+        console.log("pair count is  " + this.state.pairs);
+      } else if (this.state.pairs === 8) {
+        this.gameEnd();
       }
+    }
+  };
+
+  gameEnd = () => {
+    if (this.state.pairs === 8) {
+      console.log(
+        "well done you got all 8 pairs in clicks:" + this.state.clicks
+      );
+ 
     }
   };
 
@@ -42,7 +54,39 @@ class Game extends Component {
     this.pairCheck();
   };
 
-  render() { return <Grid tileEvent={this.handleClick} />}
+  render() {
+    return (
+      <>
+        {" "}
+        <Grid tileEvent={this.handleClick} />
+        <div className="scoreBox">
+          {" "}
+          <h2>clicks:{this.state.clicks}</h2>
+        </div>{" "}
+        <div className="scorePairs">
+          {" "}
+          <h2>pairs:{this.state.pairs}</h2>
+        </div>
+
+
+<div className="container">
+      <h1>What's your name??</h1>
+      <form onSubmit={this.onFormSubmit}>
+        <label htmlFor="name">Name</label>
+        <input 
+        type="text" 
+        name="name" 
+        id="name"
+        onChange={this.onInputChange} 
+        />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+
+
+      </>
+    );
+  }
 }
 
 export default Game;
