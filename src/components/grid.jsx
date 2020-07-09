@@ -1,26 +1,24 @@
 import React, { Component } from "react";
 import Tile from "./tile";
-
+import RandColour from "./randColour";
 class Grid extends Component {
+
   render() {
-    const randCol = () => {
-      let arr = ["", "", ""];
-      arr = arr.map((i) => {
-        // for each index in arr fill with random hex number
-        return Math.floor(Math.random() * (255 - 0 + 1) + 0).toString(16);
-      });
-      // return string #AABBCC hex code format
-      return `#${arr.join("")}`;
-    };
-    let arr = new Array(8).fill("");
-    arr = arr.map((n, i) => {
-      let tmp = ["", ""];
-      let col = randCol();
-      return tmp.map(() => {
-        return <Tile colour={col} pairId={i} />;
+    let tiles = new Array(8).fill("");
+    // create tile pairs
+    tiles = tiles.map((n, i) => {
+      // const col = RandColour;
+      // TODO fix unique colour rendering
+      return ["", ""].map(() => {
+        return <Tile colour={"pink"} pairId={i + 1} event={this.props.tileEvent} />;
       });
     });
-    return <>{arr}</>;
+
+    return (
+      <div id="grid" className="container">
+        {tiles}
+      </div>
+    );
   }
 }
 
