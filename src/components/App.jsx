@@ -2,29 +2,36 @@ import React, { Component } from "react";
 import "../styles/App.scss";
 import Grid from "./grid";
 import AllScores from "./AllScores";
-import visArray from "./visArray";
 
 class App extends Component {
   constructor() {
     super();
-    // array tracking wip
-    this.state = { clicks: 0, visArray: [] };
+    this.visible = [];
+    this.state = { clicks: 1 };
   }
 
+  updateVisibility = (tile) => {
+      // if (tile.style === "background-color: blue"){
+      // }
+  };
+
+  Visibility = (tile) => {
+    if (this.visible.length === 2) {
+      this.visible.shift();
+    }
+    this.visible.push({ id: tile.id, element: tile });
+    this.updateVisibility();
+  };
+
   handleClick = (event) => {
-    console.log(event.target.id);
-    event.target.style = "background-color: greenyellow";
-    console.log(event.target);
-    // array tracking wip
-    // visArray(event.target, this.setState((s, c)=>{this.setState(s, c)}))
+    console.log(`you've clicked ${this.state.clicks} times`);
+    this.Visibility(event.target);
     this.setState((state) => {
       return (state.clicks += 1);
     });
   };
 
   render() {
-    console.log(this.state);
-    console.log("in render");
     return (
       <>
         <h1>hello world</h1>
