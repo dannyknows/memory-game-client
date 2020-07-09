@@ -5,11 +5,26 @@ import Grid from "./grid";
 class App extends Component {
   constructor() {
     super();
-    this.state = { clicks: 0 };
+    this.state = { clicks: 0, visible: [] };
   }
+  visArray = (tileId) => {
+    console.log("in vis array");
+    this.setState((s) => {
+      if (s.visible.length === 2) {
+        s.visible.shift();
+        s.visible.push(tileId);
+      } else {
+        s.visible.push(tileId);
+      }
+    });
+    console.log(this.state.visible);
+  };
 
-  handleClick = (tile) => {
-    console.log(tile.target.id)
+  handleClick = (event) => {
+    console.log(event.target.id);
+    event.target.style = "background-color: greenyellow";
+    console.log(event.target);
+    this.visArray(event.target.id);
     this.setState((state) => {
       return (state.clicks += 1);
     });
