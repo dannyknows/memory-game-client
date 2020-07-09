@@ -4,7 +4,7 @@ class AllScores extends React.Component {
   state = { scores: [] };
 
   getScores = async () => {
-    const response = await fetch("http://localhost:3000/scores");
+    const response = await fetch("https://afternoon-shelf-14654.herokuapp.com/scores");
     const scores = await response.json();
     this.setState({ scores: scores });
   };

@@ -10,17 +10,29 @@ class App extends Component {
     this.state = { clicks: 1 };
   }
 
+  pairCheck = () => {
+    if (this.visible.length === 2) {
+      if (this.visible[0].id === this.visible[1].id) {
+        console.log("victory");
+      }
+    }
+  };
+
   updateVisibility = (tile) => {
-      // if (tile.style === "background-color: blue"){
-      // }
+    if (tile.style["background-color"] === "blue") {
+      tile.style = "background-color: pink";
+    } else {
+      tile.style = "background-color: blue";
+    }
   };
 
   Visibility = (tile) => {
     if (this.visible.length === 2) {
+      this.updateVisibility(this.visible[0].element);
       this.visible.shift();
     }
     this.visible.push({ id: tile.id, element: tile });
-    this.updateVisibility();
+    this.updateVisibility(tile);
   };
 
   handleClick = (event) => {
@@ -29,12 +41,12 @@ class App extends Component {
     this.setState((state) => {
       return (state.clicks += 1);
     });
+    this.pairCheck();
   };
 
   render() {
     return (
       <>
-        <h1>hello world</h1>
         <Grid tileEvent={this.handleClick} />
         <AllScores />
       </>
