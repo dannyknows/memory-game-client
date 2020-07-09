@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../styles/App.scss";
 import Grid from "./grid";
+import AllScores from "./AllScores";
 
 class App extends Component {
   constructor() {
@@ -37,6 +38,7 @@ class App extends Component {
       <>
         <h1>hello world</h1>
         <Grid tileEvent={this.handleClick} />
+        <AllScores/>
       </>
     );
   }
