@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import Tile from "./tile";
-import RandColour from "./randColour";
+// import RandColour from "../randColour";
+
 class Grid extends PureComponent {
   render() {
     let tiles = new Array(8).fill("");
