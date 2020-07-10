@@ -1,9 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./components/App.jsx";
 
-// import test from "./components/test"
-// test()
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
+);
 
-ReactDOM.render(<App />, document.getElementById("root"));
+
+// import test from "./components/test";
+// test();
+// ReactDOM.render(<test />, document.getElementById("root"));

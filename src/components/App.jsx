@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Router, Route, Switch } from "react-router-dom";
 import "../styles/App.scss";
 import AllScores from "./AllScores";
 import Game from "./game";
@@ -8,9 +9,11 @@ class App extends Component {
   render() {
     return (
       <>
-        <Landing />
-        <Game />
-        <AllScores />
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/play" component={Game} />
+          <Route exact path="/scoreboard" component={AllScores} />
+        </Switch>
       </>
     );
   }

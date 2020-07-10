@@ -23,6 +23,8 @@ const test = () => {
   // console.log(cryp2);
   fetch("https://pixabay.com/api/?key=17401644-d52a5734cec03a9bb1803044d&q=yellow+flowers&image_type=photo")
     .then((res)=>{console.log(res)})
+
+  return <img></img>
 };
 
 export default test;

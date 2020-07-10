@@ -21,10 +21,7 @@ class Game extends Component {
 
   gameEnd = () => {
     if (this.state.pairs === 8) {
-      console.log(
-        "well done you got all 8 pairs in clicks:" + this.state.clicks
-      );
- 
+      console.log("well done you got all 8 pairs in clicks:" + this.state.clicks);
     }
   };
 
@@ -67,23 +64,14 @@ class Game extends Component {
           {" "}
           <h2>pairs:{this.state.pairs}</h2>
         </div>
-
-
-<div className="container">
-      <h1>What's your name??</h1>
-      <form onSubmit={this.onFormSubmit}>
-        <label htmlFor="name">Name</label>
-        <input 
-        type="text" 
-        name="name" 
-        id="name"
-        onChange={this.onInputChange} 
-        />
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
-
-
+        <div className="container">
+          <h1>What's your name??</h1>
+          <form onSubmit={this.onFormSubmit}>
+            <label htmlFor="name">Name</label>
+            <input type="text" name="name" id="name" onChange={this.onInputChange} />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
       </>
     );
   }
