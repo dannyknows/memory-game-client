@@ -28,12 +28,7 @@ class Game extends Component {
           <h1>What's your name??</h1>
           <form onSubmit={this.onFormSubmit}>
             <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              onChange={this.onInputChange} 
-            />
+            <input type="text" name="name" id="name" onChange={this.onInputChange} />
             <p>your score is {this.state.score + " clicks"}</p>
             <input type="submit" value="Submit" />
           </form>
@@ -43,25 +38,24 @@ class Game extends Component {
   };
 
   onInputChange = (event) => {
-    console.log("on input change")
+    console.log("on input change");
     this.setState({
-      [event.target.id]: event.target.value
-    })
- 
-  }
+      [event.target.id]: event.target.value,
+    });
+  };
 
   onFormSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     await fetch("https://afternoon-shelf-14654.herokuapp.com/scores", {
- method: "POST",
- headers: {
-   'Content-Type': "application/json"
- },
- // Parameters: {"score"=>{"score"=>19, "pairs"=>8, "name"=>"TestScore"}}
- body: JSON.stringify({score: this.state})
-    })
-    this.props.history.push("/scores")
-  }
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Parameters: {"score"=>{"score"=>19, "pairs"=>8, "name"=>"TestScore"}}
+      body: JSON.stringify({ score: this.state }),
+    });
+    this.props.history.push("/scoreboard");
+  };
 
   updateVisibility = (tile) => {
     if (tile.style["background-color"] === "blue") {
@@ -88,8 +82,6 @@ class Game extends Component {
     });
     this.pairCheck();
   };
-
-
 
   render() {
     return (
