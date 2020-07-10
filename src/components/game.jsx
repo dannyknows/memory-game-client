@@ -40,6 +40,7 @@ class Game extends Component {
   };
 
   onInputChange = (event) => {
+    console.log("on input change")
     this.setState({
       [event.target.id]: event.target.value
     })
@@ -53,7 +54,8 @@ class Game extends Component {
  headers: {
    'Content-Type': "application/json"
  },
- body: JSON.stringify(this.state)
+ // Parameters: {"score"=>{"score"=>19, "pairs"=>8, "name"=>"TestScore"}}
+ body: JSON.stringify({score: this.state})
     })
     this.props.history.push("/scores")
   }
@@ -99,7 +101,7 @@ class Game extends Component {
           {" "}
           <h2>pairs:{this.state.pairs}</h2>
         </div>
-        <div>{this.gameEnd()}</div>
+        {this.gameEnd()}
       </>
     );
   }
