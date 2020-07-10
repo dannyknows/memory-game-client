@@ -11,7 +11,9 @@ class Game extends Component {
   pairCheck = () => {
     if (this.visible.length === 2) {
       if (this.visible[0].id === this.visible[1].id && this.state.pairs < 8) {
-        this.state.pairs += 1;
+        this.setState((state) => {
+          state.pairs += 1;
+        });
         console.log("pair count is  " + this.state.pairs);
       } else if (this.state.pairs === 8) {
         this.gameEnd();

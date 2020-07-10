@@ -3,42 +3,51 @@ import Tile from "./tile";
 // import RandColour from "../randColour";
 
 class Grid extends PureComponent {
-  render() {
-    let tiles = new Array(8).fill("");
-    // create tile pairs
-    tiles = tiles.map((n, i) => {
-      // const col = RandColour;
-      // TODO fix unique colour rendering
-      return ["", ""].map(() => {
-        return <Tile colour={"pink"} pairId={i + 1} event={this.props.tileEvent} />;
-      });
-    });
+  constructor(props) {
+    super(props);
+    const state = { data: [] };
+  }
 
-    function shuffle(array) {
-      let counter = array.length;
+  componentDidMount() {
+    fetch(`https://pixabay.com/api/?key=17401644-d52a5734cec03a9bb1803044d&q=yellow+flowers&image_type=photo`)
+      .then((res) => res.json())
+      .then((data) => this.setState({ data: data }));
+  }
 
-      // While there are elements in the array
-      while (counter > 0) {
-        // Pick a random index
-        let index = Math.floor(Math.random() * counter);
+  shuffle(array) {
+    let counter = array.length;
 
-        // Decrease counter by 1
-        counter--;
+    // While there are elements in the array
+    while (counter > 0) {
+      // Pick a random index
+      let index = Math.floor(Math.random() * counter);
 
-        // And swap the last element with it
-        let temp = array[counter];
-        array[counter] = array[index];
-        array[index] = temp;
-      }
-      return array;
+      // Decrease counter by 1
+      counter--;
+
+      // And swap the last element with it
+      let temp = array[counter];
+      array[counter] = array[index];
+      array[index] = temp;
     }
-    tiles = shuffle(tiles.flat(1));
+    return array;
+  }
 
-    return (
-      <div id="grid" className="container">
-        {tiles}
-      </div>
-    );
+  tileConstructor = () => {
+    const tiles = [];
+    for (let i = 0; i < 8; i++) {
+      const image = this.state?.data.hits[i].webformatURL;
+      for (let a = 0; a < 2; a++) {
+        tiles.push(<Tile image={image} pairId={i + 1} event={this.props.tileEvent} />);
+      }
+    }
+    return this.shuffle(tiles)
+  };
+
+  render() {
+    return <div id="grid">
+      {this.tileConstructor()}
+    </div>;
   }
 }
 

@@ -4,7 +4,16 @@ const Tile = (props) => {
   const [colour, setColour] = useState(props.colour);
   const { pairId } = props;
   return (
-    <div style={{ backgroundColor: colour }} onClick={props.event} id={pairId} className="tile"></div>
+    <div
+      style={{
+        backgroundImage: `url(${props.image})`,
+        backgroundSize: "150px",
+        backgroundColor: "red",
+      }}
+      onClick={props.event}
+      id={pairId}
+      className="tile"
+    ></div>
   );
 };
 
