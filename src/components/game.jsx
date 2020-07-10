@@ -5,14 +5,13 @@ class Game extends Component {
   constructor() {
     super();
     this.visible = [];
-    this.state = { clicks: 1, pairs: 0, name: "player" };
+    this.state = { score: 1, pairs: 0, name: "player" };
   }
 
   pairCheck = () => {
     if (this.visible.length === 2) {
       if (this.visible[0].id === this.visible[1].id && this.state.pairs < 8) {
         this.state.pairs += 1;
-        console.log("pair count is  " + this.state.pairs);
       } else if (this.state.pairs === 8) {
         this.gameEnd();
       }
@@ -30,14 +29,34 @@ class Game extends Component {
               type="text"
               name="name"
               id="name"
-              onChange={this.onInputChange}
+              onChange={this.onInputChange} 
             />
+            <p>your score is {this.state.score + " clicks"}</p>
             <input type="submit" value="Submit" />
           </form>
         </div>
       );
     }
   };
+
+  onInputChange = (event) => {
+    this.setState({
+      [event.target.id]: event.target.value
+    })
+ 
+  }
+
+  onFormSubmit = async (event) => {
+    event.preventDefault()
+    await fetch("https://afternoon-shelf-14654.herokuapp.com/scores", {
+ method: "POST",
+ headers: {
+   'Content-Type': "application/json"
+ },
+ body: JSON.stringify(this.state)
+    })
+    this.props.history.push("/scores")
+  }
 
   updateVisibility = (tile) => {
     if (tile.style["background-color"] === "blue") {
@@ -57,13 +76,15 @@ class Game extends Component {
   };
 
   handleClick = (event) => {
-    console.log(`you've clicked ${this.state.clicks} times`);
+    console.log(`you've clicked ${this.state.score} times`);
     this.Visibility(event.target);
     this.setState((state) => {
-      return (state.clicks += 1);
+      return (state.score += 1);
     });
     this.pairCheck();
   };
+
+
 
   render() {
     return (
@@ -72,7 +93,7 @@ class Game extends Component {
         <Grid tileEvent={this.handleClick} />
         <div className="scoreBox">
           {" "}
-          <h2>clicks:{this.state.clicks}</h2>
+          <h2>clicks:{this.state.score}</h2>
         </div>{" "}
         <div className="scorePairs">
           {" "}
