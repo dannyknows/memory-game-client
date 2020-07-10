@@ -9,7 +9,7 @@ class Grid extends PureComponent {
   }
 
   componentDidMount() {
-    fetch(`https://pixabay.com/api/?key=17401644-d52a5734cec03a9bb1803044d&q=yellow+flowers&image_type=photo`)
+    fetch(`https://pixabay.com/api/?key=17401644-d52a5734cec03a9bb1803044d&q=puppies&image_type=photo`)
       .then((res) => res.json())
       .then((data) => this.setState({ data: data }));
   }
