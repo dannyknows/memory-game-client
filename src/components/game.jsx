@@ -5,7 +5,7 @@ class Game extends Component {
   constructor() {
     super();
     this.visible = [];
-    this.state = { clicks: 1, pairs: 0, name: "player" };
+    this.state = { score: 1, pairs: 0, name: "player" };
   }
 
   pairCheck = () => {
@@ -23,9 +23,45 @@ class Game extends Component {
 
   gameEnd = () => {
     if (this.state.pairs === 8) {
-      console.log("well done you got all 8 pairs in clicks:" + this.state.clicks);
+      return (
+        <div className="container">
+          <h1>What's your name??</h1>
+          <form onSubmit={this.onFormSubmit}>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              onChange={this.onInputChange} 
+            />
+            <p>your score is {this.state.score + " clicks"}</p>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      );
     }
   };
+
+  onInputChange = (event) => {
+    console.log("on input change")
+    this.setState({
+      [event.target.id]: event.target.value
+    })
+ 
+  }
+
+  onFormSubmit = async (event) => {
+    event.preventDefault()
+    await fetch("https://afternoon-shelf-14654.herokuapp.com/scores", {
+ method: "POST",
+ headers: {
+   'Content-Type': "application/json"
+ },
+ // Parameters: {"score"=>{"score"=>19, "pairs"=>8, "name"=>"TestScore"}}
+ body: JSON.stringify({score: this.state})
+    })
+    this.props.history.push("/scores")
+  }
 
   updateVisibility = (tile) => {
     if (tile.style["background-color"] === "blue") {
@@ -45,13 +81,15 @@ class Game extends Component {
   };
 
   handleClick = (event) => {
-    console.log(`you've clicked ${this.state.clicks} times`);
+    console.log(`you've clicked ${this.state.score} times`);
     this.Visibility(event.target);
     this.setState((state) => {
-      return (state.clicks += 1);
+      return (state.score += 1);
     });
     this.pairCheck();
   };
+
+
 
   render() {
     return (
@@ -60,20 +98,13 @@ class Game extends Component {
         <Grid tileEvent={this.handleClick} />
         <div className="scoreBox">
           {" "}
-          <h2>clicks:{this.state.clicks}</h2>
+          <h2>clicks:{this.state.score}</h2>
         </div>{" "}
         <div className="scorePairs">
           {" "}
           <h2>pairs:{this.state.pairs}</h2>
         </div>
-        <div className="container">
-          <h1>What's your name??</h1>
-          <form onSubmit={this.onFormSubmit}>
-            <label htmlFor="name">Name</label>
-            <input type="text" name="name" id="name" onChange={this.onInputChange} />
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
+        {this.gameEnd()}
       </>
     );
   }
