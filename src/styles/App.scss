@@ -60,3 +60,16 @@ form textarea {
   resize: none;
   height: 100px;
 }
+
+nav {
+  padding: 20px;
+  border: 1px solid black;
+
+}
+
+nav a, nav span {
+  text-decoration: none;
+  color: crimson;
+  margin: 0px 10px;
+  cursor: pointer;
+}
